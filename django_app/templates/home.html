@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% extends "base.html" %}
+    <title>{% block title %}Home {{ block.super }}{% endblock %}</title>
+</head>
+    <body>
+        {% block content %}
+            test
+            <h1>{{ user_name }}</h1>
+            <p>High School: {{ career.high_school }}</p>
+            <p>University: {{ career.university.upper }}</p>
+        {% endblock %}
+    </body>
+</html>
