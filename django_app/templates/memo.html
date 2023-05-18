@@ -3,4 +3,9 @@
 
 {% block content %}
     <h1>Memo {{ block.super }}</h1>
+    {% for memo in memos %}
+        <p>{{ memo.memo }} {{ memo.updated_at }}</p>
+        {% comment %} <form action="POST"></form> {% endcomment %}
+    {% endfor %}
+    <a href="{% url 'django_app:new_memo' %}">新規投稿</a>
 {% endblock %}
