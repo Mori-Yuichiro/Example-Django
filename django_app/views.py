@@ -36,7 +36,14 @@ def memo(request):
 def new_memo(request):
     new_memo = forms.MemoForm()
     if request.method == 'POST':
-        # ホーム画面に遷移
-        return redirect('django_app:memo')
+        new_memo = forms.MemoForm(request.POST)
+        print('--------- post --------------------')
+        print(new_memo)
+        # バリデーション実行後、保存
+        if new_memo.is_valid():
+            print('--------- validation and save ------------------')
+            new_memo.save()
+            # ホーム画面に遷移
+            return redirect('django_app:memo')
 
     return render(request, 'new_memo.html', context={'new_memo': new_memo})

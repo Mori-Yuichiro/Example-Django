@@ -1,12 +1,19 @@
 from django import forms
 
+from .models import Memo
 
-class MemoForm(forms.Form):
-    # memo = forms.CharField(widget=forms.Textarea)
-    memo = forms.CharField(required=True)
+
+class MemoForm(forms.ModelForm):
+    memo = forms.CharField(widget=forms.Textarea)
+    # memo = forms.CharField(required=True)
+
+    class Meta:
+        model = Memo
+        fields = ('memo',)
 
     # def clean_memo(self):
+    #     print('---------- clean_name ---------------')
     #     memo = self.cleaned_data['memo']
-    #     print('確認')
-    #     if len(memo) > 20:
+    #     print(memo)
+    #     if len(memo) > 200:
     #         raise forms.ValidationError('メモは200文字以内にしてください')
