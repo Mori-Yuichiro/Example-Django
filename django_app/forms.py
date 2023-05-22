@@ -11,9 +11,10 @@ class MemoForm(forms.ModelForm):
         model = Memo
         fields = ('memo',)
 
-    # def clean_memo(self):
-    #     print('---------- clean_name ---------------')
-    #     memo = self.cleaned_data['memo']
-    #     print(memo)
-    #     if len(memo) > 200:
-    #         raise forms.ValidationError('メモは200文字以内にしてください')
+    def clean_memo(self):
+        print('---------- clean_name ---------------')
+        memo = self.cleaned_data['memo']
+        print(memo)
+        if len(memo) > 200:
+            print('エラー')
+            raise forms.ValidationError('メモは200文字以内にしてください')

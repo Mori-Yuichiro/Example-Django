@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-<title>{% block title%}New Memo {{ block.super }}{% endblock %}</title>
+<title>{% block title%}Edit Memo {{ block.super }}{% endblock %}</title>
 
 {% block content %}
     <h1>Edit Memo {{ block.super }}</h1>
     <form action="" method="POST">
         {% csrf_token %}
-        {{ new_memo }}
+        {{ memo_content }}
         <input type="submit" value="投稿">
     </form>
 {% endblock %}

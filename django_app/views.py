@@ -3,6 +3,7 @@ import os
 
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django.utils import timezone
 
 from .models import Memo
 from . import forms
@@ -59,16 +60,18 @@ def edit_memo(request, memo_id):
     content = Memo.objects.get(id=memo_id)
     print("----- memo content -----")
     print(content.memo)
-    new_memo = forms.MemoForm(initial={'memo': content.memo})
+    # memo_content = forms.MemoForm(initial={'memo': content.memo})
+    memo_content = forms.MemoForm(instance=content)
     if request.method == 'POST':
-        new_memo = forms.MemoForm(request.POST)
-        print('--------- post --------------------')
-        print(new_memo)
+        memo_content = forms.MemoForm(request.POST, instance=content)
+        print('確認')
+        print(memo_content.is_valid)
         # バリデーション実行後、保存
-        if new_memo.is_valid():
-            print('--------- validation and save ------------------')
-            new_memo.save()
+        if memo_content.is_valid():
+            print('--------- validation and update ------------------')
+            # print(memo_content)
+            memo_content.save()
             # ホーム画面に遷移
             return redirect('django_app:memo')
 
-    return render(request, 'new_memo.html', context={'new_memo': new_memo})
+    return render(request, 'edit_memo.html', context={'memo_content': memo_content})
