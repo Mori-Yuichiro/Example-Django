@@ -7,6 +7,9 @@
     <title>{% block title %}Page{% endblock %}</title>
 </head>
 <body>
-    {% block content %}Page{% endblock %}
+    {% block content %}
+        Page
+        <a href="{% url 'django_app:memo' %}">ホーム</a>
+    {% endblock %}
 </body>
 </html>

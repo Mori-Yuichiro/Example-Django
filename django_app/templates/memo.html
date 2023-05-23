@@ -3,4 +3,9 @@
 
 {% block content %}
     <h1>Memo {{ block.super }}</h1>
+    {% for memo in memos %}
+        {% comment %} {{ memo.memo }} {% if memo.updated_at is None%}{{ memo.created_at }} {% else %} {{ memo.updated_at }} {% endif %} <a href="{% url 'django_app:edit_memo' memo_id=memo.id %}">編集</a> {% endcomment %}
+        {{ memo.memo }} {% if memo.updated_at is None%}{{ memo.created_at }} {% else %} {{ memo.updated_at }} {% endif %} <a href="{% url 'django_app:edit_memo' memo.id %}">編集</a>
+    {% endfor %}
+    <a href="{% url 'django_app:new_memo' %}">新規投稿</a>
 {% endblock %}
