@@ -4,6 +4,7 @@ import os
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
+from django.views.decorators.http import require_POST
 
 from .models import Memo
 from . import forms
@@ -43,7 +44,7 @@ def new_memo(request):
     if request.method == 'POST':
         new_memo = forms.MemoForm(request.POST)
         print('--------- post --------------------')
-        print(new_memo)
+        print(f'確認 : {new_memo.is_valid}')
         # バリデーション実行後、保存
         if new_memo.is_valid():
             print('--------- validation and save ------------------')
@@ -74,4 +75,14 @@ def edit_memo(request, memo_id):
             # ホーム画面に遷移
             return redirect('django_app:memo')
 
-    return render(request, 'edit_memo.html', context={'memo_content': memo_content})
+    return render(request, 'edit_memo.html', context={'memo_content': memo_content, 'memo_id': memo_id})
+
+# メモ削除
+
+
+@require_POST
+def delete_memo(request, memo_id):
+    Memo.objects.filter(id=memo_id).delete()
+    print(f'Delete memo_id : {memo_id} {request}')
+    # ホーム画面に遷移
+    return redirect('django_app:memo')

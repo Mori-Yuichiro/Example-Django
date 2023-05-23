@@ -8,4 +8,9 @@
         {{ memo_content }}
         <input type="submit" value="投稿">
     </form>
+    <form action="{% url 'django_app:delete_memo' memo_id %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="削除">
+    </form>
+    {% comment %} <a href="{% url 'django_app:delete_memo' memo_id %}">削除</a> {% endcomment %}
 {% endblock %}
